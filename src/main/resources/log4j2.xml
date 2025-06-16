@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Extra logging related to initialization of Log4j.
+ Set to debug or trace if log4j initialization is failing. -->
+<Configuration status="warn">
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout disableAnsi="false">
+                <LevelPatternSelector defaultPattern="[%d{HH:mm:ss}] [%c{1}] [%t/%p]: %msg%n%ex">
+                    <!-- Different levels -->
+                    <!-- %blue{[%d{HH:mm:ss}] %notEmpty{(%marker) }}%white{[%c{1}] }%style{[%t/%p]} -->
+                    <PatternMatch key="TRACE" pattern="%blue{[%d{HH:mm:ss}] %notEmpty{(%marker) }}%style{[%t/%p]}{bright_black}%white{:}%style{ %msg%n%ex}{white}"/>
+                    <PatternMatch key="DEBUG" pattern="%blue{[%d{HH:mm:ss}] %notEmpty{(%marker) }}%style{[%t/%p]}{#AF7AB3}%white{:}%style{ %msg%n%ex}{#C9BBCF}"/>
+                    <PatternMatch key="INFO"  pattern="%blue{[%d{HH:mm:ss}] %notEmpty{(%marker) }}%style{[%t/%p]}{#77DD77}%white{:}%style{ %msg%n%ex}{bright_white}"/>
+                    <PatternMatch key="WARN"  pattern="%blue{[%d{HH:mm:ss}] %notEmpty{(%marker) }}%style{[%t/%p]}{#FFB347}%white{:}%style{ %msg%n%ex}{#FFD8A1}"/>
+                    <PatternMatch key="ERROR" pattern="%blue{[%d{HH:mm:ss}] %notEmpty{(%marker) }}%style{[%t/%p]}{#FF9F9F bold}%white{:}%style{ %msg%n%ex}{#FF9494}"/>
+                    <PatternMatch key="FATAL" pattern="%blue{[%d{HH:mm:ss}] %notEmpty{(%marker) }}%style{[%t/%p]}{#E97777 bold}%white{:}%style{ %msg%n%ex}{#FF9494}"/>
+                </LevelPatternSelector>
+            </PatternLayout>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <!-- Root logger referring to console appender -->
+        <Root level="INFO" additivity="false">
+            <AppenderRef ref="console" />
+        </Root>
+    </Loggers>
+</Configuration>

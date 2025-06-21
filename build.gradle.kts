@@ -42,7 +42,6 @@ dependencies {
 }
 
 application {
-	// Configure the main class
 	mainClass.set("dev.uraxys.idleclient.MainKt")
 }
 

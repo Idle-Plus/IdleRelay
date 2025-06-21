@@ -135,7 +135,7 @@ class NetworkManager(
 		// "Try" to create a unique fingerprint for this client.
 		// This is used for 2FA on the game server.
 
-		// TODO: Replace the session token with some cookie or data
+		// TODO: Replace the user agent & ip with some cookie or data
 		//       stored on the client.
 
 		val clientIp = call.request.origin.remoteAddress

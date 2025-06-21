@@ -218,7 +218,7 @@ object TypeScriptGenerator {
 			val key = if (enumKeysAsString && (keyType.classifier as? KClass<*>)?.java?.isEnum == true)
 				"string /* Name of: $realKey */" else realKey
 
-			return "Map<${key}, ${getType(valueType)}>${if (optional) " | null" else ""}"
+			return "${getMapType(key, getType(valueType))}${if (optional) " | null" else ""}"
 		}
 
 		if (clazz.isSubclassOf(List::class)) {
@@ -271,7 +271,7 @@ object TypeScriptGenerator {
 			val key = if (enumKeysAsString && (keyType.classifier as? KClass<*>)?.java?.isEnum == true)
 				"string /* Name of: $realKey */" else realKey
 
-			return "Map<${key}, ${getType(valueType)}>${if (optional) " | null" else ""}"
+			return "${getMapType(key, getType(valueType))}${if (optional) " | null" else ""}"
 		}
 
 		if (clazz.isSubclassOf(List::class)) {
@@ -311,7 +311,7 @@ object TypeScriptGenerator {
 				val key = if (enumKeysAsString && keyType.javaClass.isEnum)
 					"string /* Name of: $realKey */" else realKey
 
-				return "Map<${key}, ${getType(valueType)}>${if (nullable) " | null" else ""}"
+				return "${getMapType(key, getType(valueType))}${if (nullable) " | null" else ""}"
 			}
 		}
 
@@ -372,6 +372,10 @@ object TypeScriptGenerator {
 		}
 		return null
 	}
+
+	// Other
+
+	private fun getMapType(key: String, value: String) = "{ [key: ${key}]: $value }"
 
 	// Annotations
 

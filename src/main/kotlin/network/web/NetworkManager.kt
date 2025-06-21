@@ -88,7 +88,14 @@ class NetworkManager(
 				}
 
 				if (!client.authenticated) {
-					log.warn("Client ${client.networkId} [${client.networkId}] sent a packet before completing authentication.")
+					val payload = Common.JSON.readTree(content)
+					if (payload is ObjectNode && payload.get("MsgType")?.asInt() == 2 && payload.has("ForceLogIn")) {
+						// Client is trying to force login, allow it.
+						client.sendToInternal(ServerType.GAME, content)
+						return@consumeEach
+					}
+
+					log.warn("Client ${client.networkId} sent a packet before completing authentication.")
 					session.close(Codes.VIOLATED_POLICY)
 					return@consumeEach
 				}

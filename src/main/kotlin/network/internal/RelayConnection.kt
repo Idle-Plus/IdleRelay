@@ -78,8 +78,9 @@ class RelayConnection(
 		packet.put("ClientVersion", this.client.clientVersion)
 		packet.put("ConfigVersion", this.client.configVersion)
 		packet.put("UniqueDeviceId", this.client.uniqueDeviceId)
-		packet.put("ForceLogIn", true)
-		this.send(WatsonPacket.withPayload(packet.toString()), true)
+
+		val payload = packet.toString()
+		this.send(WatsonPacket.withPayload(payload), true)
 	}
 
 	override fun channelInactive(ctx: ChannelHandlerContext) {

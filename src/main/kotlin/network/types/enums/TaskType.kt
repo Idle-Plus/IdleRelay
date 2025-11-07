@@ -21,4 +21,5 @@ enum class TaskType {
 	Enchanting,
 	Brewing,
 	Exterminating,
+	ItemCreation
 }

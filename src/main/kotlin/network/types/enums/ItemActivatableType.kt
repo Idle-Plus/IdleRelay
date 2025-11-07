@@ -17,4 +17,7 @@ enum class ItemActivatableType {
 	BossPage,
 	QuestingToken,
 	ExterminatingToken,
+	RaidAFKToken,
+	ClanBossRareBoundDrop,
+	ExterminatingSupplyCrate,
 }

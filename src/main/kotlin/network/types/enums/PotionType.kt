@@ -14,4 +14,5 @@ enum class PotionType {
 	DarkMagic,
 	PurePower,
 	AncientKnowledge,
+	DragonfirePotion
 }

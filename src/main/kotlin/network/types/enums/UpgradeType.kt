@@ -63,4 +63,5 @@ enum class UpgradeType {
 	upgrade_bloodmoon_exterminator,
 	upgrade_bloodmoon_fisherman,
 	upgrade_bloodmoon_helmet_upgrade,
+	upgrade_skilling_ticket_boost,
 }

@@ -9,4 +9,5 @@ enum class ExterminatingShopUnlockType {
 	AutoComplete,
 	AssignmentExtension,
 	BloodmoonEquipment,
+	ExterminatingSupplyCrate
 }

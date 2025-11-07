@@ -1,12 +1,15 @@
 package dev.uraxys.idleclient.network.types.packets
 
 import dev.uraxys.idleclient.network.types.data.ActiveExterminatingAssignment
+import dev.uraxys.idleclient.network.types.data.AfkRaidInfo
 import dev.uraxys.idleclient.network.types.data.CombatOfflineProgressNetwork
 import dev.uraxys.idleclient.network.types.data.DailyGuildQuest
 import dev.uraxys.idleclient.network.types.data.GuildApplicationForLogin
 import dev.uraxys.idleclient.network.types.data.GuildInvitation
 import dev.uraxys.idleclient.network.types.data.GuildMember
 import dev.uraxys.idleclient.network.types.data.PetOfflineProgression
+import dev.uraxys.idleclient.network.types.data.PurchaseLimitScopeCountDto
+import dev.uraxys.idleclient.network.types.data.PvmBestRecord
 import dev.uraxys.idleclient.network.types.data.ShopListingItem
 import dev.uraxys.idleclient.network.types.data.SkillingOfflineProgressNetwork
 import dev.uraxys.idleclient.network.types.enums.AttackStyle
@@ -15,6 +18,8 @@ import dev.uraxys.idleclient.network.types.enums.FTUEStage
 import dev.uraxys.idleclient.network.types.enums.GameMode
 import dev.uraxys.idleclient.network.types.enums.PlayerRewardType
 import dev.uraxys.idleclient.network.types.enums.PotionType
+import dev.uraxys.idleclient.network.types.enums.PvmStatType
+import dev.uraxys.idleclient.network.types.enums.RaidType
 import dev.uraxys.idleclient.network.types.enums.Skill
 import dev.uraxys.idleclient.network.types.enums.UpgradeType
 import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
@@ -85,7 +90,12 @@ class LoginDataMessage(
 	val activeExterminatingAssignment: ActiveExterminatingAssignment?,
 	val exterminatorUnlocked: Boolean,
 	val unlockedExterminatingPurchases: List<ExterminatingShopUnlockType>?,
-	val playerRewards: Map<PlayerRewardType, Int>?
+	val playerRewards: Map<PlayerRewardType, Int>?,
+	val stats: Map<PvmStatType, Int>,
+	val pvmBestTimes: Map<PvmStatType, PvmBestRecord>?,
+	val afkRaidInfo: AfkRaidInfo?,
+	val unlockedAFKRaids: List<RaidType>,
+	val purchaseLimitCounts: Array<PurchaseLimitScopeCountDto>
 ) : NetworkMessage(msgType) {
 	override fun toString(): String {
 		return "LoginDataMessage(username=$username, skillExperiencesJson=$skillExperiencesJson, inventoryJson=$inventoryJson, gold=$gold, equipmentJson=$equipmentJson, equippedAmmunitionAmount=$equippedAmmunitionAmount, newPlayer=$newPlayer, health=$health, isVerified=$isVerified, premiumEndDate=$premiumEndDate, isPremiumPlus=$isPremiumPlus, unlockedBossHunter=$unlockedBossHunter, unlockedAutoLoadouts=$unlockedAutoLoadouts, upgrades=$upgrades, combatStyle=$combatStyle, archeryCombatStyle=$archeryCombatStyle, magicCombatStyle=$magicCombatStyle, autoEatPercentage=$autoEatPercentage, usedBossKey=$usedBossKey, kronosAttackStyleWeakness=$kronosAttackStyleWeakness, tutorialStage=$tutorialStage, gameMode=$gameMode, configVersion=$configVersion, guildName=$guildName, members=$members, activeGuildApplications=$activeGuildApplications, vaultGold=$vaultGold, guildHouseId=$guildHouseId, clanCredits=$clanCredits, nextQuestGenerationTimestamp=$nextQuestGenerationTimestamp, dailySkillingQuests=$dailySkillingQuests, dailyCombatQuests=$dailyCombatQuests, skillingContributors=$skillingContributors, combatContributors=$combatContributors, unlockedUpgrades=$unlockedUpgrades, accumulatedCredits=$accumulatedCredits, offlineHours=$offlineHours, skillingOfflineProgress=$skillingOfflineProgress, combatOfflineProgress=$combatOfflineProgress, itemsSoldOffline=${itemsSoldOffline.contentToString()}, serializedPlayerToggleableSettings=$serializedPlayerToggleableSettings, adsWatchedToday=$adsWatchedToday, lastAdWatchedTimestampTicks=$lastAdWatchedTimestampTicks, adBoostedSeconds=$adBoostedSeconds, adBoostPaused=$adBoostPaused, purchasedInventorySlots=$purchasedInventorySlots, clanVaultSpacePurchased=$clanVaultSpacePurchased, activePotionEffects=$activePotionEffects, serializedItemEnchantments=$serializedItemEnchantments, guildInvitations=${guildInvitations.contentToString()}, useInventoryConsumables=$useInventoryConsumables, shouldShowQuestsNotification=$shouldShowQuestsNotification, questerUnlocked=$questerUnlocked, petOfflineProgress=$petOfflineProgress, activePetSkill=$activePetSkill, petTaskId=$petTaskId, itemsInWithdrawalBox=$itemsInWithdrawalBox, exterminatingPoints=$exterminatingPoints, activeExterminatingAssignment=$activeExterminatingAssignment, exterminatorUnlocked=$exterminatorUnlocked, unlockedExterminatingPurchases=$unlockedExterminatingPurchases, playerRewards=$playerRewards)"

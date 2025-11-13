@@ -14,10 +14,10 @@ class RequestGuildStateMessage(
 class ReceiveGuildStateMessage(
 	msgType: Int,
 
-	val skillExperiences: Map<Skill, Float>,
+	val skillExperiences: Map<Skill, Float>?,
 	val clanCredits: Int,
 	val eventStates: String,
-	val skillingTickets: Map<Skill, Int>,
+	val skillingTickets: Map<Skill, Int>?,
 
 	val skillingPartyCompletions: Int,
 	val isRecruiting: Boolean,

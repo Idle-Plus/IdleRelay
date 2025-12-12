@@ -70,6 +70,19 @@ class GuildUpdateMinimumTotalLevelRequirementMessage(
 ) : NetworkMessage(msgType)
 
 /**
+ * Sent by the client when the player wants to request the current recruitment
+ * message of the clan. Server then sends back the message using the same packet.
+ *
+ * Client to server and server to client.
+ */
+@InternalPacket(217)
+class GuildRequestRecruitmentMessageMessage(
+	msgType: Int,
+
+	val recruitmentMessage: String?
+) : NetworkMessage(msgType)
+
+/**
  * Sent by both the client and the server when the clan's tag has been changed.
  *
  * Client to server and server to client.

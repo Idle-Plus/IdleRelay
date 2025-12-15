@@ -3,14 +3,23 @@ package dev.uraxys.idleclient.network.types.packets.clan
 import dev.uraxys.idleclient.network.types.packets.NetworkMessage
 import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
 
-// Client to server
+/**
+ * Sent by the client to request the bulletin board info from the server, the
+ * server responds with [GuildBulletinBoardInfoMessage].
+ *
+ * Client to server
+ */
 @InternalPacket(188)
 class RequestGuildBulletinInfoMessage(
 	msgType: Int,
 ) : NetworkMessage(msgType)
 
-// Server to client: response to RequestGuildBulletinInfoMessage
-// Client to server: edit bulletin board
+/**
+ * Sent by the server as a response to [RequestGuildBulletinInfoMessage]. Is
+ * also sent by the client when editing the bulletin board.
+ *
+ * Server to client and client to server
+ */
 @InternalPacket(189)
 class GuildBulletinBoardInfoMessage(
 	msgType: Int,
@@ -19,7 +28,12 @@ class GuildBulletinBoardInfoMessage(
 	val discordInvitationCode: String?
 ) : NetworkMessage(msgType)
 
-// Server to client: response to GuildBulletinBoardInfoMessage
+/**
+ * Sent by the server as a response to [GuildBulletinBoardInfoMessage] from the
+ * client trying to edit the bulletin board.
+ *
+ * Client to server
+ */
 @InternalPacket(190)
 class GuildBulletinBoardEditResponseMessage(
 	msgType: Int,

@@ -1,8 +1,9 @@
 package dev.uraxys.idleclient.network.types.packets
 
+import dev.uraxys.idleclient.network.types.GamePacket
 import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
 
-@InternalPacket(14)
+@InternalPacket(GamePacket.UnequipItemMessage)
 class UnequipItemMessage(
 	msgType: Int,
 

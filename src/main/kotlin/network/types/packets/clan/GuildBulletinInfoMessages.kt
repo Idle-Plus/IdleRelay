@@ -1,5 +1,6 @@
 package dev.uraxys.idleclient.network.types.packets.clan
 
+import dev.uraxys.idleclient.network.types.GamePacket
 import dev.uraxys.idleclient.network.types.packets.NetworkMessage
 import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
 
@@ -9,7 +10,7 @@ import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
  *
  * Client to server
  */
-@InternalPacket(188)
+@InternalPacket(GamePacket.RequestGuildBulletinInfoMessage)
 class RequestGuildBulletinInfoMessage(
 	msgType: Int,
 ) : NetworkMessage(msgType)
@@ -20,7 +21,7 @@ class RequestGuildBulletinInfoMessage(
  *
  * Server to client and client to server
  */
-@InternalPacket(189)
+@InternalPacket(GamePacket.GuildBulletinBoardInfoMessage)
 class GuildBulletinBoardInfoMessage(
 	msgType: Int,
 
@@ -34,7 +35,7 @@ class GuildBulletinBoardInfoMessage(
  *
  * Client to server
  */
-@InternalPacket(190)
+@InternalPacket(GamePacket.GuildBulletinBoardEditResponseMessage)
 class GuildBulletinBoardEditResponseMessage(
 	msgType: Int,
 

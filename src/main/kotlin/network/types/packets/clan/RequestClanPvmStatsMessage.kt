@@ -1,5 +1,6 @@
 package dev.uraxys.idleclient.network.types.packets.clan
 
+import dev.uraxys.idleclient.network.types.GamePacket
 import dev.uraxys.idleclient.network.types.enums.PvmStatType
 import dev.uraxys.idleclient.network.types.packets.NetworkMessage
 import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
@@ -15,7 +16,7 @@ import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
  *
  * Client to server and server to client.
  */
-@InternalPacket(323)
+@InternalPacket(GamePacket.RequestClanPvmStats)
 class RequestClanPvmStatsMessage(
 	msgType: Int,
 

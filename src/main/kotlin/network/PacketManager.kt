@@ -35,7 +35,7 @@ object PacketManager {
 			@Suppress("UNCHECKED_CAST")
 			val klass = clazz.kotlin as KClass<out NetworkMessage>
 			val annotation = klass.annotations.find { it is InternalPacket } as InternalPacket
-			val id = annotation.value
+			val id = annotation.value.id()
 
 			this.PACKETS_BY_ID[id] = klass
 			this.PACKETS_BY_CLASS[klass] = id
@@ -44,10 +44,18 @@ object PacketManager {
 
 	fun decode(json: ObjectNode): NetworkMessage? {
 		val id = json["MsgType"]?.asInt() ?: return null
+		val origin = json["OriginServerId"]?.asText()
 		val packetClass = PACKETS_BY_ID[id] ?: return null
+		json.remove("MsgType")
+		json.remove("OriginServerId")
+
 		// Will throw an exception if the packet is missing values or has
 		// invalid data types. Which is what we want, as we want to know
 		// if a packet we're handling is suddenly not working anymore.
-		return Common.RELAY_INBOUND_NETWORK_JSON.treeToValue(json, packetClass.java)
+		val packet = Common.RELAY_INBOUND_NETWORK_JSON.treeToValue(json, packetClass.java)
+		packet.MsgType = id
+		packet.OriginServerId = origin
+
+		return packet
 	}
 }

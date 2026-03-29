@@ -1,4 +1,4 @@
-package dev.uraxys.idleclient.network.types.data
+package dev.uraxys.idleclient.network.types.data.guild
 
 import dev.uraxys.idleclient.network.types.enums.GameMode
 import dev.uraxys.idleclient.network.types.enums.GuildRank
@@ -6,13 +6,14 @@ import dev.uraxys.idleclient.tools.typescript.annotations.ClientData
 import java.time.Instant
 
 @ClientData
-data class GuildMember(
-	val rank: GuildRank = GuildRank.member,
-	val isOnline: Boolean,
+data class GuildMemberDto(
+	val username: String,
+	val rank: GuildRank,
+	val activeServerId: String?,
 	val hasVaultAccess: Boolean,
-	val gameMode: GameMode = GameMode.NotSelected,
+	val gameMode: GameMode,
 	val isPremium: Boolean,
-	val isPremiumPlus: Boolean,
+	val isGilded: Boolean,
 	val logoutTime: Instant?,
-	val joinDate: Instant?,
+	val joinDate: Instant,
 )

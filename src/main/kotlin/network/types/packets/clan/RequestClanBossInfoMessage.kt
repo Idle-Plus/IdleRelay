@@ -1,5 +1,6 @@
 package dev.uraxys.idleclient.network.types.packets.clan
 
+import dev.uraxys.idleclient.network.types.GamePacket
 import dev.uraxys.idleclient.network.types.enums.ClanBossModifierType
 import dev.uraxys.idleclient.network.types.enums.ClanEventBossType
 import dev.uraxys.idleclient.network.types.enums.PvmStatType
@@ -8,7 +9,7 @@ import dev.uraxys.idleclient.tools.typescript.annotations.ClientDoc
 import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
 
 @ClientDoc("<->")
-@InternalPacket(337)
+@InternalPacket(GamePacket.RequestClanBossInfoMessage)
 class RequestClanBossInfoMessage(
 	msgType: Int,
 

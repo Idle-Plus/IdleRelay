@@ -14,6 +14,7 @@ data class SkillingOfflineProgressNetwork(
 	val offlineExperiences: FloatArray?,
 	val taskTypeToContinue: TaskType,
 	val taskIdToContinue: Byte,
+	val elapsedMs: Int,
 ) {
 	override fun equals(other: Any?): Boolean {
 		if (this === other) return true

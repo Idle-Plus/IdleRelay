@@ -1,5 +1,6 @@
 package dev.uraxys.idleclient.network.types.packets.clan
 
+import dev.uraxys.idleclient.network.types.GamePacket
 import dev.uraxys.idleclient.network.types.packets.NetworkMessage
 import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
 
@@ -8,7 +9,7 @@ import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
  *
  * Client to server.
  */
-@InternalPacket(50)
+@InternalPacket(GamePacket.KickGuildMemberMessage)
 class KickGuildMemberMessage(
 	msgType: Int,
 
@@ -21,9 +22,10 @@ class KickGuildMemberMessage(
  *
  * Server to client.
  */
-@InternalPacket(51)
+/*
+@InternalPacket(GamePacket.GuildMemberKickedMessage)
 class GuildMemberKickedMessage(
 	msgType: Int,
 
 	val playerName: String
-) : NetworkMessage(msgType)
+) : NetworkMessage(msgType)*/

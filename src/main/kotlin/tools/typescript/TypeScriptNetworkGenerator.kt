@@ -1,6 +1,7 @@
 package dev.uraxys.idleclient.tools.typescript
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies
+import dev.uraxys.idleclient.network.types.GamePacket
 import dev.uraxys.idleclient.network.types.packets.NetworkMessage
 import dev.uraxys.idleclient.tools.typescript.annotations.ClientData
 import dev.uraxys.idleclient.tools.typescript.annotations.ClientDoc
@@ -98,11 +99,11 @@ private fun generateData(file: StringBuilder) {
 }
 
 private fun generatePackets(file: StringBuilder, packetRegistry: StringBuilder, packetTypes: StringBuilder,
-                            packets: Map<Int, KClass<out NetworkMessage>>) {
+                            packets: Map<GamePacket, KClass<out NetworkMessage>>) {
 	for (entry in packets) {
 		val packet = entry.value
 		val packetName = packet.simpleName
-		val packetId = entry.key
+		val packetId = entry.key.id()
 
 		generateClientDocTS(packet, file)
 
@@ -111,16 +112,20 @@ private fun generatePackets(file: StringBuilder, packetRegistry: StringBuilder, 
 
 		file.append("export class $packetName extends $parent {\n")
 		file.append("\tpublic readonly MsgType: number = $packetId;\n")
+		file.append("\tpublic OriginServerId: string | null = null;\n")
 		file.append("\t${modifier}constructor(")
 
 		val constructor = packet.constructors.first { !it.has(ClientIgnore::class) }
 		val parameters = constructor.parameters
 
+		var hasConstructorParameter = false
 		for (parameter in parameters) {
 			val name = PropertyNamingStrategies.UpperCamelCaseStrategy.INSTANCE.translate(parameter.name)
 			//val nullable = parameter.type.isMarkedNullable
 
 			if (name == "MsgType") continue
+			if (name == "OriginServerId") continue
+			hasConstructorParameter = true
 
 			//if (nullable) file.append("public $name: ")
 			//else file.append("public $name: ")
@@ -129,19 +134,23 @@ private fun generatePackets(file: StringBuilder, packetRegistry: StringBuilder, 
 		}
 
 		// Remove the last comma and space.
-		if (parameters.isNotEmpty() && parameters.size > 1) file.setLength(file.length - 2)
+		if (hasConstructorParameter) file.setLength(file.length - 2)
 		file.append(") { super(); }\n\n")
 
 		// Static method to serialize the packet.
 		file.append("\tpublic static fromJson(${if (parameters.isNotEmpty()) "json" else "_"}: any): $packetName {\n")
-		file.append("\t\treturn new $packetName(")
+		//file.append("\t\treturn new $packetName(")
+		file.append("\t\tconst _data_ = new $packetName(")
 		for (parameter in parameters) {
 			val name = PropertyNamingStrategies.UpperCamelCaseStrategy.INSTANCE.translate(parameter.name)
 			if (name == "MsgType") continue
+			if (name == "OriginServerId") continue
 			file.append("json.$name, ")
 		}
-		if (parameters.isNotEmpty() && parameters.size > 1) file.setLength(file.length - 2)
+		if (hasConstructorParameter) file.setLength(file.length - 2)
 		file.append(");\n")
+		file.append("\t\t_data_.OriginServerId = json.OriginServerId;\n")
+		file.append("\t\treturn _data_;\n")
 		file.append("\t}\n")
 
 		// End of class.

@@ -1,5 +1,6 @@
 package dev.uraxys.idleclient.network.types.packets.clan
 
+import dev.uraxys.idleclient.network.types.GamePacket
 import dev.uraxys.idleclient.network.types.packets.NetworkMessage
 import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
 
@@ -8,7 +9,7 @@ import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
  *
  * Client to server.
  */
-@InternalPacket(56)
+@InternalPacket(GamePacket.DeclineGuildInviteMessage)
 class DeclineGuildInviteMessage(
 	msgType: Int,
 

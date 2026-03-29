@@ -1,5 +1,6 @@
 package dev.uraxys.idleclient.network.types.packets.clan
 
+import dev.uraxys.idleclient.network.types.GamePacket
 import dev.uraxys.idleclient.network.types.packets.NetworkMessage
 import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
 import java.time.Instant
@@ -20,7 +21,7 @@ import java.time.Instant
  *
  * Client to server.
  */
-@InternalPacket(47)
+@InternalPacket(GamePacket.DeleteGuildMessage)
 class DeleteGuildMessage(
 	msgType: Int,
 
@@ -33,7 +34,7 @@ class DeleteGuildMessage(
  *
  * Server to client.
  */
-@InternalPacket(265)
+@InternalPacket(GamePacket.GuildDeletionResponseMessage)
 class GuildDeletionResponseMessage(
 	msgType: Int,
 
@@ -46,7 +47,7 @@ class GuildDeletionResponseMessage(
  *
  * // NOT SURE
  */
-@InternalPacket(266)
+@InternalPacket(GamePacket.AbortGuildDeletionMessage)
 class AbortGuildDeletionMessage(
 	msgType: Int
 ) : NetworkMessage(msgType)
@@ -56,7 +57,7 @@ class AbortGuildDeletionMessage(
  *
  * Server to client.
  */
-@InternalPacket(49)
+@InternalPacket(GamePacket.GuildDeletedMessage)
 class GuildDeletedMessage(
 	msgType: Int
 ) : NetworkMessage(msgType)

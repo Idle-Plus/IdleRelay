@@ -1,5 +1,6 @@
 package dev.uraxys.idleclient.network.types.packets.item
 
+import dev.uraxys.idleclient.network.types.GamePacket
 import dev.uraxys.idleclient.network.types.packets.NetworkMessage
 import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
 
@@ -9,7 +10,7 @@ import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
  *
  * Client to server and server to client.
  */
-@InternalPacket(6)
+@InternalPacket(GamePacket.SellItemMessage)
 class SellItemMessage(
 	msgType: Int,
 

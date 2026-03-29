@@ -9,6 +9,7 @@ data class CombatOfflineProgressNetwork(
 	val experiencesReceived: Map<Byte, Int>?,
 	val levelsReceived: Map<Byte, Int>?,
 	val monsterKillsByTaskId: Map<Int, Int>?,
+	val lostItems: Map<Int, Int>?,
 	val exterminatingPointsReceived: Int,
 	val playerDied: Boolean,
 	val timeOfDeathMilliseconds: Double,

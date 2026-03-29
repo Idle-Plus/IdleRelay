@@ -1,5 +1,6 @@
 package dev.uraxys.idleclient.network.types.packets.clan
 
+import dev.uraxys.idleclient.network.types.GamePacket
 import dev.uraxys.idleclient.network.types.enums.ClanCategory
 import dev.uraxys.idleclient.network.types.packets.NetworkMessage
 import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
@@ -10,7 +11,7 @@ import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
  *
  * Client to server and server to client.
  */
-@InternalPacket(212)
+@InternalPacket(GamePacket.GuildUpdateRecruitmentStateMessage)
 class GuildUpdateRecruitmentStateMessage(
 	msgType: Int,
 
@@ -23,7 +24,7 @@ class GuildUpdateRecruitmentStateMessage(
  *
  * Client to server and server to client.
  */
-@InternalPacket(213)
+@InternalPacket(GamePacket.GuildUpdateStatusMessage)
 class GuildUpdateStatusMessage(
 	msgType: Int,
 
@@ -36,7 +37,7 @@ class GuildUpdateStatusMessage(
  *
  * Client to server and server to client.
  */
-@InternalPacket(214)
+@InternalPacket(GamePacket.GuildUpdatePrimaryLanguageMessage)
 class GuildUpdatePrimaryLanguageMessage(
 	msgType: Int,
 
@@ -49,7 +50,7 @@ class GuildUpdatePrimaryLanguageMessage(
  *
  * Client to server and server to client.
  */
-@InternalPacket(215)
+@InternalPacket(GamePacket.GuildUpdateRecruitmentMessageMessage)
 class GuildUpdateRecruitmentMessageMessage(
 	msgType: Int,
 
@@ -62,7 +63,7 @@ class GuildUpdateRecruitmentMessageMessage(
  *
  * Client to server and server to client.
  */
-@InternalPacket(216)
+@InternalPacket(GamePacket.GuildUpdateMinimumTotalLevelRequirementMessage)
 class GuildUpdateMinimumTotalLevelRequirementMessage(
 	msgType: Int,
 
@@ -75,7 +76,7 @@ class GuildUpdateMinimumTotalLevelRequirementMessage(
  *
  * Client to server and server to client.
  */
-@InternalPacket(217)
+@InternalPacket(GamePacket.GuildRequestRecruitmentMessageMessage)
 class GuildRequestRecruitmentMessageMessage(
 	msgType: Int,
 
@@ -87,7 +88,7 @@ class GuildRequestRecruitmentMessageMessage(
  *
  * Client to server and server to client.
  */
-@InternalPacket(354)
+@InternalPacket(GamePacket.GuildUpdateTagMessage)
 class GuildUpdateTagMessage(
 	msgType: Int,
 

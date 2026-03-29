@@ -1,14 +1,18 @@
 package dev.uraxys.idleclient.network.types.packets.clan
 
-import dev.uraxys.idleclient.network.types.data.DailyGuildQuest
-import dev.uraxys.idleclient.network.types.data.GuildMember
+import dev.uraxys.idleclient.network.types.GamePacket
+import dev.uraxys.idleclient.network.types.data.guild.DailyGuildQuest
+import dev.uraxys.idleclient.network.types.data.guild.GuildMember
 import dev.uraxys.idleclient.network.types.enums.Skill
 import dev.uraxys.idleclient.network.types.enums.UpgradeType
 import dev.uraxys.idleclient.network.types.packets.NetworkMessage
 import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
 import java.time.Instant
 
-@InternalPacket(38)
+// TODO: Doesn't seem to be used anymore?
+
+/*
+@InternalPacket(GamePacket.PlayerJoinedGuildMessage)
 class PlayerJoinedGuildMessage(
 	msgType: Int,
 
@@ -40,4 +44,4 @@ class PlayerJoinedGuildMessage(
 	val skillingTickets: Map<Skill, Int>?,
 	val skillingPartyCompletions: Int,
 	val tag: String?,
-) : NetworkMessage(msgType)
+) : NetworkMessage(msgType)*/

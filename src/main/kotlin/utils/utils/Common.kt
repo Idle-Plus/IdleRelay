@@ -15,6 +15,9 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer
 import com.fasterxml.jackson.databind.module.SimpleModule
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.ZoneOffset
 
 object Common {
 
@@ -28,6 +31,7 @@ object Common {
 		.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
 		.registerKotlinModule()
 		.registerModule(JavaTimeModule())
+		.registerModule(SimpleModule().addDeserializer(Instant::class.java, FlexibleInstantDeserializer()))
 		.also { OmittedEnumDeserializer.registerModule(it) }
 
 	/**
@@ -49,6 +53,22 @@ object Common {
 		.enable(SerializationFeature.WRITE_ENUMS_USING_INDEX)
 		.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
 
+}
+
+class FlexibleInstantDeserializer : JsonDeserializer<Instant>() {
+	override fun deserialize(
+		p: JsonParser,
+		ctxt: DeserializationContext
+	): Instant? {
+		val text = p.text.trim()
+
+		if (text.endsWith("Z") || text.contains("+") || text.matches(Regex(".*-\\d{2}:?\\d{2}$"))) {
+			return Instant.parse(text)
+		}
+
+		return LocalDateTime.parse(text)
+			.toInstant(ZoneOffset.UTC)
+	}
 }
 
 class OmittedEnumDeserializer<E : Enum<E>>(

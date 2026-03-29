@@ -21,4 +21,5 @@ enum class GuildActionResponse {
 	guild_not_recruiting,
 	guild_gamemode_mismatch,
 	guild_not_high_enough_rank,
+	application_accepted,
 }

@@ -1,10 +1,11 @@
 package dev.uraxys.idleclient.network.types.packets
 
+import dev.uraxys.idleclient.network.types.GamePacket
 import dev.uraxys.idleclient.tools.typescript.annotations.ClientDoc
 import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
 
 @ClientDoc("Confirmation that the active task has been cancelled, server to client only.")
-@InternalPacket(192)
+@InternalPacket(GamePacket.ActiveTaskCancelledMessage)
 class ActiveTaskCancelledMessage(
 	msgType: Int,
 ) : NetworkMessage(msgType)

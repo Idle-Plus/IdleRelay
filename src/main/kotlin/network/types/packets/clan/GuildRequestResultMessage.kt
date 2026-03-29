@@ -1,5 +1,6 @@
 package dev.uraxys.idleclient.network.types.packets.clan
 
+import dev.uraxys.idleclient.network.types.GamePacket
 import dev.uraxys.idleclient.network.types.enums.GuildActionResponse
 import dev.uraxys.idleclient.network.types.packets.NetworkMessage
 import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
@@ -9,7 +10,7 @@ import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
  *
  * Server to client.
  */
-@InternalPacket(41)
+@InternalPacket(GamePacket.GuildRequestResultMessage)
 class GuildRequestResultMessage(
 	msgType: Int,
 

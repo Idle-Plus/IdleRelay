@@ -1,8 +1,9 @@
 package dev.uraxys.idleclient.network.types.packets
 
+import dev.uraxys.idleclient.network.types.GamePacket
 import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
 
-@InternalPacket(69)
+@InternalPacket(GamePacket.InventoryItemSwapMessage)
 class InventoryItemSwapMessage(
 	msgType: Int,
 

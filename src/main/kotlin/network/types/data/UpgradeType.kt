@@ -1,6 +1,8 @@
-package dev.uraxys.idleclient.network.types.enums
+package dev.uraxys.idleclient.network.types.data
 
 import dev.uraxys.idleclient.tools.typescript.annotations.ClientData
+
+// path: /IdleMMOServer/Scripts/Shared/Upgrades
 
 @ClientData
 enum class UpgradeType {
@@ -64,4 +66,10 @@ enum class UpgradeType {
 	upgrade_bloodmoon_fisherman,
 	upgrade_bloodmoon_helmet_upgrade,
 	upgrade_skilling_ticket_boost,
+	upgrade_pet_here_fishy_fishy,
+	upgrade_pet_theyre_not_rocks_theyre_minerals,
+	upgrade_pet_whos_a_good_boy,
+	upgrade_pet_how_to_train_your_demon_pet,
+	upgrade_principles_of_combat,
+	clan_upgrade_royal_extermination,
 }

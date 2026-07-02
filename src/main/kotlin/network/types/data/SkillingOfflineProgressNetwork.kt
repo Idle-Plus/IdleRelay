@@ -1,7 +1,8 @@
 package dev.uraxys.idleclient.network.types.data
 
-import dev.uraxys.idleclient.network.types.enums.Skill
-import dev.uraxys.idleclient.network.types.enums.TaskType
+import dev.uraxys.idleclient.network.types.data.skill.Skill
+import dev.uraxys.idleclient.network.types.data.storage.StorageType
+import dev.uraxys.idleclient.network.types.data.task.TaskType
 import dev.uraxys.idleclient.tools.typescript.annotations.ClientData
 
 @ClientData
@@ -15,6 +16,7 @@ data class SkillingOfflineProgressNetwork(
 	val taskTypeToContinue: TaskType,
 	val taskIdToContinue: Byte,
 	val elapsedMs: Int,
+	val storageType: StorageType,
 ) {
 	override fun equals(other: Any?): Boolean {
 		if (this === other) return true
@@ -23,6 +25,7 @@ data class SkillingOfflineProgressNetwork(
 		other as SkillingOfflineProgressNetwork
 
 		if (taskIdToContinue != other.taskIdToContinue) return false
+		if (elapsedMs != other.elapsedMs) return false
 		if (!receivedItemIds.contentEquals(other.receivedItemIds)) return false
 		if (!receivedItemAmounts.contentEquals(other.receivedItemAmounts)) return false
 		if (!itemsLost.contentEquals(other.itemsLost)) return false
@@ -30,6 +33,7 @@ data class SkillingOfflineProgressNetwork(
 		if (!offlineProgressSkills.contentEquals(other.offlineProgressSkills)) return false
 		if (!offlineExperiences.contentEquals(other.offlineExperiences)) return false
 		if (taskTypeToContinue != other.taskTypeToContinue) return false
+		if (storageType != other.storageType) return false
 
 		return true
 	}

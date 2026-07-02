@@ -3,7 +3,8 @@ package dev.uraxys.idleclient.network.types.packets
 import dev.uraxys.idleclient.network.types.GamePacket
 import dev.uraxys.idleclient.network.types.data.item.ItemDelta
 import dev.uraxys.idleclient.network.types.data.skill.ExpDelta
-import dev.uraxys.idleclient.network.types.enums.TaskType
+import dev.uraxys.idleclient.network.types.data.storage.StorageType
+import dev.uraxys.idleclient.network.types.data.task.TaskType
 import dev.uraxys.idleclient.tools.typescript.annotations.ClientDoc
 import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
 
@@ -16,4 +17,5 @@ class CompleteTaskMessage(
 	val taskId: Byte,
 	val itemChanges: Array<ItemDelta>,
 	val expChanges: Array<ExpDelta>,
+	val storageType: StorageType,
 ) : NetworkMessage(msgType)

@@ -10,6 +10,7 @@ import dev.uraxys.idleclient.network.types.data.PurchaseLimitScopeCountDto
 import dev.uraxys.idleclient.network.types.data.PvmBestRecord
 import dev.uraxys.idleclient.network.types.data.ShopListingItem
 import dev.uraxys.idleclient.network.types.data.SkillingOfflineProgressNetwork
+import dev.uraxys.idleclient.network.types.data.UpgradeType
 import dev.uraxys.idleclient.network.types.data.event.HolidayEvent
 import dev.uraxys.idleclient.network.types.data.guild.GuildEventLobbyState
 import dev.uraxys.idleclient.network.types.data.quest.QuestLoginObject
@@ -18,11 +19,10 @@ import dev.uraxys.idleclient.network.types.enums.ExterminatingShopUnlockType
 import dev.uraxys.idleclient.network.types.enums.FTUEStage
 import dev.uraxys.idleclient.network.types.enums.GameMode
 import dev.uraxys.idleclient.network.types.enums.PlayerRewardType
-import dev.uraxys.idleclient.network.types.enums.PotionType
+import dev.uraxys.idleclient.network.types.data.PotionType
 import dev.uraxys.idleclient.network.types.enums.PvmStatType
 import dev.uraxys.idleclient.network.types.enums.RaidType
-import dev.uraxys.idleclient.network.types.enums.Skill
-import dev.uraxys.idleclient.network.types.enums.UpgradeType
+import dev.uraxys.idleclient.network.types.data.skill.Skill
 import dev.uraxys.idleclient.network.types.packets.clan.ReceiveGuildStateMessage
 import dev.uraxys.idleclient.tools.typescript.annotations.ClientType
 import dev.uraxys.idleclient.tools.typescript.annotations.InternalPacket
@@ -46,6 +46,7 @@ class LoginDataMessage(
 	val unlockedBossHunter: Boolean,
 	val unlockedAutoLoadouts: Boolean,
 	val upgrades: Map<UpgradeType, Int>?,
+	val disabledUpgrades: List<UpgradeType>, // TODO: nullable?
 	val combatStyle: Byte,
 	val archeryCombatStyle: Byte,
 	val magicCombatStyle: Byte,
@@ -106,9 +107,11 @@ class LoginDataMessage(
 	val purchaseLimitCounts: Array<PurchaseLimitScopeCountDto>,
 	val serverId: String,
 	val activeHolidayEvent: HolidayEvent,
+	val invocationCofferGold: Double, // Decimal
+	val invocationRitualPower: Long,
 	val isInGuild: Boolean,
 ) : NetworkMessage() {
 	override fun toString(): String {
-		return "LoginDataMessage(username=$username, skillExperiencesJson=$skillExperiencesJson, inventoryJson=$inventoryJson, gold=$gold, equipmentJson=$equipmentJson, equippedAmmunitionAmount=$equippedAmmunitionAmount, newPlayer=$newPlayer, health=$health, isVerified=$isVerified, premiumEndDate=$premiumEndDate, isPremiumPlus=$isPremiumPlus, unlockedBossHunter=$unlockedBossHunter, unlockedAutoLoadouts=$unlockedAutoLoadouts, upgrades=$upgrades, combatStyle=$combatStyle, archeryCombatStyle=$archeryCombatStyle, magicCombatStyle=$magicCombatStyle, autoEatPercentage=$autoEatPercentage, usedBossKey=$usedBossKey, kronosAttackStyleWeakness=$kronosAttackStyleWeakness, tutorialStage=$tutorialStage, gameMode=$gameMode, configVersion=$configVersion, guildStateMessage=$guildStateMessage, guildLobbyStates=$guildLobbyStates, offlineTime='$offlineTime', skillingOfflineProgress=$skillingOfflineProgress, combatOfflineProgress=$combatOfflineProgress, itemsSoldOffline=${itemsSoldOffline.contentToString()}, serializedPlayerToggleableSettings=$serializedPlayerToggleableSettings, adsWatchedToday=$adsWatchedToday, lastAdWatchedTimestampTicks=$lastAdWatchedTimestampTicks, adBoostedSeconds=$adBoostedSeconds, adBoostPaused=$adBoostPaused, purchasedInventorySlots=$purchasedInventorySlots, clanVaultSpacePurchased=$clanVaultSpacePurchased, activePotionEffects=$activePotionEffects, serializedItemEnchantments=$serializedItemEnchantments, guildInvitations=$guildInvitations, useInventoryConsumables=$useInventoryConsumables, questLoginObject=$questLoginObject, questerUnlocked=$questerUnlocked, petOfflineProgress=$petOfflineProgress, activePetSkill=$activePetSkill, petTaskId=$petTaskId, itemsInWithdrawalBox=$itemsInWithdrawalBox, exterminatingPoints=$exterminatingPoints, activeExterminatingAssignment=$activeExterminatingAssignment, exterminatorUnlocked=$exterminatorUnlocked, unlockedExterminatingPurchases=$unlockedExterminatingPurchases, playerRewards=$playerRewards, stats=$stats, pvmBestTimes=$pvmBestTimes, afkRaidInfo=$afkRaidInfo, unlockedAFKRaids=$unlockedAFKRaids, purchaseLimitCounts=${purchaseLimitCounts.contentToString()}, serverId='$serverId', activeHolidayEvent=$activeHolidayEvent, isInGuild=$isInGuild)"
+		return "LoginDataMessage(username=$username, skillExperiencesJson=$skillExperiencesJson, inventoryJson=$inventoryJson, gold=$gold, equipmentJson=$equipmentJson, equippedAmmunitionAmount=$equippedAmmunitionAmount, newPlayer=$newPlayer, health=$health, isVerified=$isVerified, premiumEndDate=$premiumEndDate, isPremiumPlus=$isPremiumPlus, unlockedBossHunter=$unlockedBossHunter, unlockedAutoLoadouts=$unlockedAutoLoadouts, upgrades=$upgrades, disabledUpgrades=$disabledUpgrades, combatStyle=$combatStyle, archeryCombatStyle=$archeryCombatStyle, magicCombatStyle=$magicCombatStyle, autoEatPercentage=$autoEatPercentage, usedBossKey=$usedBossKey, kronosAttackStyleWeakness=$kronosAttackStyleWeakness, tutorialStage=$tutorialStage, gameMode=$gameMode, configVersion=$configVersion, guildStateMessage=$guildStateMessage, guildLobbyStates=$guildLobbyStates, offlineTime='$offlineTime', skillingOfflineProgress=$skillingOfflineProgress, combatOfflineProgress=$combatOfflineProgress, itemsSoldOffline=${itemsSoldOffline.contentToString()}, serializedPlayerToggleableSettings=$serializedPlayerToggleableSettings, adsWatchedToday=$adsWatchedToday, lastAdWatchedTimestampTicks=$lastAdWatchedTimestampTicks, adBoostedSeconds=$adBoostedSeconds, adBoostPaused=$adBoostPaused, purchasedInventorySlots=$purchasedInventorySlots, clanVaultSpacePurchased=$clanVaultSpacePurchased, activePotionEffects=$activePotionEffects, serializedItemEnchantments=$serializedItemEnchantments, guildInvitations=$guildInvitations, useInventoryConsumables=$useInventoryConsumables, questLoginObject=$questLoginObject, questerUnlocked=$questerUnlocked, petOfflineProgress=$petOfflineProgress, activePetSkill=$activePetSkill, petTaskId=$petTaskId, itemsInWithdrawalBox=$itemsInWithdrawalBox, exterminatingPoints=$exterminatingPoints, activeExterminatingAssignment=$activeExterminatingAssignment, exterminatorUnlocked=$exterminatorUnlocked, unlockedExterminatingPurchases=$unlockedExterminatingPurchases, playerRewards=$playerRewards, stats=$stats, pvmBestTimes=$pvmBestTimes, afkRaidInfo=$afkRaidInfo, unlockedAFKRaids=$unlockedAFKRaids, purchaseLimitCounts=${purchaseLimitCounts.contentToString()}, serverId='$serverId', activeHolidayEvent=$activeHolidayEvent, invocationCofferGold=$invocationCofferGold, invocationRitualPower=$invocationRitualPower, isInGuild=$isInGuild)"
 	}
 }

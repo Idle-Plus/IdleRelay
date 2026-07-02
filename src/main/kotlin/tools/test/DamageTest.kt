@@ -5,17 +5,17 @@ import kotlin.random.Random
 
 fun main() {
 	// --- Parameters ---
-	val pHit = 0.667
+	val pHit = 0.5627//0.667
 	//val pHit = 0.662
-	val pDodge = 0.1638
+	val pDodge = 0.2178//0.1638
 	//val pDodge = 0.1638
 	val pTake = pHit * (1.0 - pDodge)
 	val pNoDamage = 1.0 - pTake
 
 	val dmgMin = 1
-	val dmgMax = 42
-	val food = 17
-	val maxHp = 97
+	val dmgMax = 48//42
+	val food = 24//17
+	val maxHp = 120//97
 	println("Calculating...")
 
 	// --- Helper function ---
@@ -54,10 +54,17 @@ fun main() {
 	val E = gaussianSolve(A, b)
 
 	println("Expected turns to death from full HP (97): %.3f".format(E[maxHp - 1]))
-	println("Expected turns with simulation runs: ${simulateBattle()}")
+	println("Expected turns with simulation runs: ${simulateBattle(
+		maxHit = dmgMax,
+		healAmount = food,
+		health = maxHp,
+		hitChance = pHit,
+		dodgeChance = pDodge,
+		simulations = 1
+	)}")
 	println("Expected turns from first few HP values:")
 	for (h in 1..E.size) {
-		println("HP $h → %.3f turns".format(E[h - 1]))
+		//println("HP $h → %.3f turns".format(E[h - 1]))
 	}
 }
 
@@ -139,4 +146,40 @@ fun simulateBattle(
 		totalTicks += ticks
 	}
 	return totalTicks / simulations
+}
+
+fun getExpectedAttacksToKill(health: Int, minHit: Int, maxHit: Int, hitChance: Double): Double {
+	val damageRange = maxHit - minHit + 1
+	val damageProbability = hitChance / damageRange
+
+	val expected = DoubleArray(health + 1)
+	val prefixExpected = DoubleArray(health + 2)
+	expected[0] = 0.0
+
+	for (currentHealth in 1..health) {
+
+		// Update the "width" of the prefix sum window.
+		val left = maxOf(currentHealth - maxHit, 0)
+		val right = currentHealth - minHit
+
+		var sum = 0.0
+		if (right >= 0) {
+			sum = if (left <= 0) prefixExpected[right]
+			else prefixExpected[right] - prefixExpected[left - 1]
+		}
+
+		// Expected remaining attacks after a successful hit, averaged over
+		// the damage range.
+		val expectedAfterHit = damageProbability * sum
+
+		// Calculate the expected attacks to reach the end from the current
+		// health.
+		// - one attack for the current action
+		// - plus expected remaining attacks weighted by hit chance
+		expected[currentHealth] = (1 + expectedAfterHit) / hitChance
+		// Maintain prefix sum
+		prefixExpected[currentHealth] = prefixExpected[currentHealth - 1] + expected[currentHealth]
+	}
+
+	return expected[health]
 }

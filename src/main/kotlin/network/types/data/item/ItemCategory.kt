@@ -1,6 +1,8 @@
-package dev.uraxys.idleclient.network.types.enums
+package dev.uraxys.idleclient.network.types.data.item
 
 import dev.uraxys.idleclient.tools.typescript.annotations.ClientData
+
+// path: /IdleMMOServer/Scripts/Shared/Data/Items
 
 @ClientData
 enum class ItemCategory {
@@ -23,4 +25,5 @@ enum class ItemCategory {
 	Activatables,
 	Miscellaneous,
 	Pets,
+	SkillingTicket,
 }

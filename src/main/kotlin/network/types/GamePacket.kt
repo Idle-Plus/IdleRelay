@@ -383,7 +383,17 @@ enum class GamePacket {
 	RequestPendingClanCreditRewardsMessage,
 	ClaimPendingClanCreditRewardsMessage,
 	PlayerMarketItemBuyLimitStatus,
-	UpdateConfigsMessage;
+	UpdateConfigsMessage,
+	ExterminatingAssignmentProgressedMessage,
+	CofferDepositGoldMessage,
+	CofferWithdrawGoldMessage,
+	CofferDepositItemsMessage,
+	CofferWithdrawItemMessage,
+	CofferSacrificeItemsMessage,
+	BeginInvocationRitualMessage,
+	GiveExperienceMessage,
+	BindOccultCollarMessage,
+	SetUpgradeUsageMessage;
 
 	fun id(): Int = this.ordinal
 }

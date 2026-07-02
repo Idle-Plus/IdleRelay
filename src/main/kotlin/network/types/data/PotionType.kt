@@ -1,6 +1,8 @@
-package dev.uraxys.idleclient.network.types.enums
+package dev.uraxys.idleclient.network.types.data
 
 import dev.uraxys.idleclient.tools.typescript.annotations.ClientData
+
+// path: /Player
 
 @ClientData
 enum class PotionType {
@@ -14,5 +16,6 @@ enum class PotionType {
 	DarkMagic,
 	PurePower,
 	AncientKnowledge,
-	DragonfirePotion
+	DragonfirePotion,
+	Ascension
 }
